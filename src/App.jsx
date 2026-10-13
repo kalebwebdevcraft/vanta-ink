@@ -14,6 +14,7 @@ import Portfolio from './pages/Portfolio';
 import Book from './pages/Book';
 import Aftercare from './pages/Aftercare';
 import NotFound from './pages/NotFound';
+import Admin from './admin/Admin';
 
 const TITLES = {
   '/': 'VANTA — Tattoo Atelier',
@@ -34,7 +35,7 @@ function shouldShowIntro() {
   }
 }
 
-export default function App() {
+function PublicSite() {
   const location = useLocation();
   const [intro, setIntro] = useState(shouldShowIntro);
 
@@ -119,4 +120,10 @@ export default function App() {
       )}
     </div>
   );
+}
+
+// The artist dashboard lives at /admin and skips all the public-site effects.
+export default function App() {
+  const { pathname } = useLocation();
+  return pathname.startsWith('/admin') ? <Admin /> : <PublicSite />;
 }
